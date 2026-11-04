@@ -1,8 +1,132 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CopyKeeper</title>
-<style>body{font:16px/1.6 system-ui,sans-serif;max-width:760px;margin:40px auto;padding:0 20px;color:#0f172a}h1{color:#0f766e}</style>
-</head><body>
-<h1>CopyKeeper – Auto BCC/CC for Gmail™</h1>
-<p><a href="privacy.html">Privacy Policy / Datenschutzerklärung</a></p>
-</body></html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CopyKeeper: Auto BCC &amp; CC for Gmail™ (free Chrome extension)</title>
+<meta name="description" content="Free Chrome extension that automatically adds your BCC and CC addresses in Gmail™, e.g. your CRM's BCC address. Visible before you send. No account, no tracking, data stays in your browser.">
+<link rel="canonical" href="https://mvepoint.github.io/copykeeper/">
+<link rel="alternate" hreflang="en" href="https://mvepoint.github.io/copykeeper/">
+<link rel="alternate" hreflang="de" href="https://mvepoint.github.io/copykeeper/#de">
+<link rel="icon" href="img/icon128.png">
+<!-- No analytics, no cookies, no external fonts/scripts/CDNs. Everything is served from this repo. -->
+<style>
+:root{--ink:#0f172a;--muted:#475569;--accent:#0f766e;--bg:#f8fafc;--line:#e2e8f0}
+*{box-sizing:border-box}
+body{margin:0;font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:#fff}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px}
+header{border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;gap:12px;padding:14px 20px}
+header img{width:32px;height:32px}
+header b{font-size:18px}
+header nav{margin-left:auto;font-size:15px}
+header nav a{color:var(--muted);text-decoration:none;margin-left:12px}
+header nav a.on{color:var(--accent);font-weight:600}
+.hero{padding:56px 0 24px;text-align:center}
+.hero h1{font-size:clamp(28px,5vw,44px);line-height:1.15;margin:0 0 12px}
+.hero p{font-size:19px;color:var(--muted);max-width:640px;margin:0 auto 24px}
+.btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;font-weight:600;padding:13px 22px;border-radius:8px}
+.btn:hover{filter:brightness(1.1)}
+.small{font-size:14px;color:var(--muted)}
+figure{margin:32px 0}
+figure img{width:100%;height:auto;border:1px solid var(--line);border-radius:10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin:32px 0}
+.card{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:18px}
+.card h3{margin:0 0 6px;font-size:17px}
+.card p{margin:0;color:var(--muted);font-size:15.5px}
+h2{margin-top:48px}
+ol li{margin-bottom:6px}
+details{border-bottom:1px solid var(--line);padding:10px 0}
+summary{cursor:pointer;font-weight:600}
+footer{margin-top:56px;border-top:1px solid var(--line);padding:20px 0 40px;font-size:14px;color:var(--muted)}
+footer a{color:var(--muted)}
+/* Language switch without JavaScript: EN by default, DE when the URL ends in #de */
+#de{display:none}
+#de:target{display:block}
+body:has(#de:target) #en{display:none}
+body:has(#de:target) .l-en{color:var(--muted);font-weight:400}
+body:has(#de:target) .l-de{color:var(--accent);font-weight:600}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <img src="img/icon128.png" alt="" width="32" height="32"><b>CopyKeeper</b>
+  <nav><a class="l-en on" href="#en" hreflang="en">EN</a><a class="l-de" href="#de" hreflang="de">DE</a></nav>
+</div></header>
+
+<!-- ===================== ENGLISH ===================== -->
+<main id="en" lang="en"><div class="wrap">
+<section class="hero">
+  <h1>Never forget a BCC in Gmail™ again</h1>
+  <p>CopyKeeper automatically adds your CC and BCC addresses to every new email, reply and forward. Perfect for logging client emails to your CRM. You see every address before you send.</p>
+  <a class="btn" href="https://chromewebstore.google.com/detail/bbnjoomncofeppcdoebcnkgpbihkoekf">Add to Chrome, it's free</a>
+  <p class="small">No account · No tracking · Data stays in your browser</p>
+</section>
+<figure><img src="img/en/01-never-forget-bcc.jpg" alt="Gmail compose window with a BCC address added automatically by CopyKeeper" width="1280" height="800" loading="lazy"></figure>
+
+<div class="grid">
+  <div class="card"><h3>CRM logging on autopilot</h3><p>Paste your CRM's BCC address once (HubSpot, Salesforce, Pipedrive, Zoho and others). Every matching email gets logged.</p></div>
+  <div class="card"><h3>Rules, not spam</h3><p>Only for certain recipient domains or a specific sender alias. An exclusion list keeps internal and private mail out.</p></div>
+  <div class="card"><h3>Visible and in your control</h3><p>Addresses appear in the draft right away. Remove one with a click, no duplicates, on/off switch in the toolbar.</p></div>
+  <div class="card"><h3>Free and private</h3><p>All features free. No account, no Gmail API access, no servers, no network requests.</p></div>
+</div>
+
+<h2>How it works</h2>
+<ol>
+  <li>Install CopyKeeper from the Chrome Web Store.</li>
+  <li>Open the settings and enter your default CC/BCC addresses or create rules.</li>
+  <li>Write emails in Gmail as usual. CopyKeeper fills in the rest.</li>
+</ol>
+<figure><img src="img/en/03-crm-logging.jpg" alt="Rule that BCCs the CRM only for client domains" width="1280" height="800" loading="lazy"></figure>
+
+<h2>FAQ</h2>
+<details><summary>Does it work with Google Workspace accounts?</summary><p>Yes, anywhere you use Gmail™ in Chrome on the desktop (mail.google.com).</p></details>
+<details><summary>Does it work in the Gmail mobile app?</summary><p>No. Browser extensions only run in desktop Chrome. For server-side copies on all devices, a Google Workspace admin can set up an outbound routing rule.</p></details>
+<details><summary>Why not just use a Gmail filter?</summary><p>Gmail filters only run on incoming mail, so they can't add a copy to the emails you send.</p></details>
+<details><summary>What data does CopyKeeper access?</summary><p>Only the Gmail page it runs on, to fill in the CC/BCC fields. Settings are stored in Chrome's sync storage. Nothing is sent to us or anyone else. Details in the <a href="privacy.html">privacy policy</a>.</p></details>
+<details><summary>Is it really free?</summary><p>Yes. There is no paid version and no account. If it saves you time, a short rating in the Chrome Web Store helps a lot.</p></details>
+<details><summary>Something doesn't work?</summary><p>Open the settings, run the self-test and send the debug log to <a href="mailto:mvepoint@gmail.com">mvepoint@gmail.com</a>.</p></details>
+</div></main>
+
+<!-- ===================== DEUTSCH ===================== -->
+<main id="de" lang="de"><div class="wrap">
+<section class="hero">
+  <h1>Nie wieder ein BCC in Gmail™ vergessen</h1>
+  <p>CopyKeeper fügt deine CC- und BCC-Adressen automatisch in jede neue Mail, Antwort und Weiterleitung ein. Ideal, um Kunden-Mails im CRM zu protokollieren. Du siehst jede Adresse vor dem Senden.</p>
+  <a class="btn" href="https://chromewebstore.google.com/detail/bbnjoomncofeppcdoebcnkgpbihkoekf?hl=de">Zu Chrome hinzufügen, kostenlos</a>
+  <p class="small">Ohne Konto · Ohne Tracking · Daten bleiben im Browser</p>
+</section>
+<figure><img src="img/de/01-never-forget-bcc.jpg" alt="Gmail-Entwurf mit automatisch eingefügter BCC-Adresse" width="1280" height="800" loading="lazy"></figure>
+
+<div class="grid">
+  <div class="card"><h3>CRM-Protokoll automatisch</h3><p>BCC-Adresse deines CRM einmal eintragen (HubSpot, Salesforce, Pipedrive, Zoho u. a.). Jede passende Mail wird protokolliert.</p></div>
+  <div class="card"><h3>Regeln statt Gießkanne</h3><p>Nur für bestimmte Empfänger-Domains oder eine Absenderadresse. Eine Ausschlussliste hält interne und private Mails draußen.</p></div>
+  <div class="card"><h3>Sichtbar und unter Kontrolle</h3><p>Adressen erscheinen sofort im Entwurf. Mit einem Klick entfernen, keine Duplikate, Ein/Aus-Schalter in der Symbolleiste.</p></div>
+  <div class="card"><h3>Kostenlos und privat</h3><p>Alle Funktionen kostenlos. Kein Konto, kein Zugriff auf die Gmail-API, keine Server, keine Netzwerkanfragen.</p></div>
+</div>
+
+<h2>So funktioniert's</h2>
+<ol>
+  <li>CopyKeeper aus dem Chrome Web Store installieren.</li>
+  <li>Einstellungen öffnen und Standard-CC/BCC-Adressen eintragen oder Regeln anlegen.</li>
+  <li>Wie gewohnt in Gmail schreiben. Den Rest erledigt CopyKeeper.</li>
+</ol>
+<figure><img src="img/de/03-crm-logging.jpg" alt="Regel: CRM nur für Kunden-Domains in BCC setzen" width="1280" height="800" loading="lazy"></figure>
+
+<h2>Häufige Fragen</h2>
+<details><summary>Funktioniert es mit Google-Workspace-Konten?</summary><p>Ja, überall dort, wo du Gmail™ in Chrome am Desktop nutzt (mail.google.com).</p></details>
+<details><summary>Funktioniert es in der Gmail-App auf dem Handy?</summary><p>Nein. Browser-Erweiterungen laufen nur in Chrome am Desktop. Für serverseitige Kopien auf allen Geräten kann ein Google-Workspace-Admin eine Routing-Regel für ausgehende Mails anlegen.</p></details>
+<details><summary>Warum nicht einfach ein Gmail-Filter?</summary><p>Gmail-Filter greifen nur bei eingehenden Mails. Gesendete Mails können sie nicht kopieren.</p></details>
+<details><summary>Auf welche Daten greift CopyKeeper zu?</summary><p>Nur auf die Gmail-Seite, um die CC/BCC-Felder auszufüllen. Einstellungen liegen im Sync-Speicher von Chrome. Es wird nichts an uns oder Dritte gesendet. Details in der <a href="privacy.html">Datenschutzerklärung</a>.</p></details>
+<details><summary>Ist es wirklich kostenlos?</summary><p>Ja. Es gibt keine Bezahlversion und kein Konto. Wenn es dir Zeit spart, hilft eine kurze Bewertung im Chrome Web Store sehr.</p></details>
+<details><summary>Etwas funktioniert nicht?</summary><p>Einstellungen öffnen, Selbsttest starten und das Debug-Log an <a href="mailto:mvepoint@gmail.com">mvepoint@gmail.com</a> schicken.</p></details>
+</div></main>
+
+<footer><div class="wrap">
+  <a href="privacy.html">Privacy Policy / Datenschutzerklärung</a> ·
+  <a href="impressum.html">Impressum / Legal notice</a>
+  <br>Gmail™ is a trademark of Google LLC. CopyKeeper is not affiliated with or endorsed by Google. Other product names belong to their owners.
+  <br>Gmail™ ist eine Marke der Google LLC. CopyKeeper steht in keiner Verbindung zu Google.
+</div></footer>
+</body>
+</html>
