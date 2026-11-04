@@ -1,132 +1,292 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CopyKeeper: Auto BCC &amp; CC for Gmail™ (free Chrome extension)</title>
-<meta name="description" content="Free Chrome extension that automatically adds your BCC and CC addresses in Gmail™, e.g. your CRM's BCC address. Visible before you send. No account, no tracking, data stays in your browser.">
+<title>CopyKeeper – Auto BCC &amp; CC for Gmail™ (free Chrome extension)</title>
+<meta name="description" content="Free Chrome extension that automatically adds your BCC and CC addresses in Gmail™ – e.g. your CRM's BCC logging address – to new mails, replies and forwards. No account, no tracking, data stays in your browser.">
 <link rel="canonical" href="https://mvepoint.github.io/copykeeper/">
 <link rel="alternate" hreflang="en" href="https://mvepoint.github.io/copykeeper/">
 <link rel="alternate" hreflang="de" href="https://mvepoint.github.io/copykeeper/#de">
-<link rel="icon" href="img/icon128.png">
+<meta name="theme-color" content="#0f766e">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="128x128" href="img/icon128.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CopyKeeper">
+<meta property="og:title" content="CopyKeeper – Never forget a BCC in Gmail™ again">
+<meta property="og:description" content="Free Chrome extension: automatically adds your CC/BCC addresses (e.g. your CRM's logging address) to every Gmail™ email. No account, no tracking.">
+<meta property="og:url" content="https://mvepoint.github.io/copykeeper/">
+<meta property="og:image" content="https://mvepoint.github.io/copykeeper/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="de_DE">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"CopyKeeper – Auto BCC & CC for Gmail™","applicationCategory":"BrowserApplication","operatingSystem":"Chrome (desktop)","url":"https://mvepoint.github.io/copykeeper/","downloadUrl":"https://chromewebstore.google.com/detail/bbnjoomncofeppcdoebcnkgpbihkoekf","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}}</script>
 <!-- No analytics, no cookies, no external fonts/scripts/CDNs. Everything is served from this repo. -->
+<script>
+/* Language: #de / #de-… shows German, #en… English; otherwise browser language. No storage, no cookies. */
+(function(){function s(){var h=location.hash,l=/^#de/.test(h)?'de':/^#en/.test(h)?'en':((navigator.language||'').slice(0,2).toLowerCase()==='de'?'de':'en');var d=document.documentElement;d.setAttribute('data-lang',l);d.lang=l;}s();addEventListener('hashchange',s);})();
+</script>
 <style>
-:root{--ink:#0f172a;--muted:#475569;--accent:#0f766e;--bg:#f8fafc;--line:#e2e8f0}
+:root{--ink:#0b1324;--body:#334155;--muted:#5b6b80;--accent:#0f766e;--accent-d:#0b5c56;--accent-l:#ccfbf1;--mint:#ecfdf8;--bg:#f6f9fb;--line:#e3e9ef;--r:16px;--shadow:0 1px 2px rgba(15,23,42,.06),0 12px 32px -12px rgba(15,23,42,.18)}
 *{box-sizing:border-box}
-body{margin:0;font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:#fff}
-.wrap{max-width:960px;margin:0 auto;padding:0 20px}
-header{border-bottom:1px solid var(--line)}
-header .wrap{display:flex;align-items:center;gap:12px;padding:14px 20px}
-header img{width:32px;height:32px}
-header b{font-size:18px}
-header nav{margin-left:auto;font-size:15px}
-header nav a{color:var(--muted);text-decoration:none;margin-left:12px}
-header nav a.on{color:var(--accent);font-weight:600}
-.hero{padding:56px 0 24px;text-align:center}
-.hero h1{font-size:clamp(28px,5vw,44px);line-height:1.15;margin:0 0 12px}
-.hero p{font-size:19px;color:var(--muted);max-width:640px;margin:0 auto 24px}
-.btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;font-weight:600;padding:13px 22px;border-radius:8px}
-.btn:hover{filter:brightness(1.1)}
-.small{font-size:14px;color:var(--muted)}
-figure{margin:32px 0}
-figure img{width:100%;height:auto;border:1px solid var(--line);border-radius:10px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin:32px 0}
-.card{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:18px}
-.card h3{margin:0 0 6px;font-size:17px}
-.card p{margin:0;color:var(--muted);font-size:15.5px}
-h2{margin-top:48px}
-ol li{margin-bottom:6px}
-details{border-bottom:1px solid var(--line);padding:10px 0}
-summary{cursor:pointer;font-weight:600}
-footer{margin-top:56px;border-top:1px solid var(--line);padding:20px 0 40px;font-size:14px;color:var(--muted)}
-footer a{color:var(--muted)}
-/* Language switch without JavaScript: EN by default, DE when the URL ends in #de */
-#de{display:none}
-#de:target{display:block}
-body:has(#de:target) #en{display:none}
-body:has(#de:target) .l-en{color:var(--muted);font-weight:400}
-body:has(#de:target) .l-de{color:var(--accent);font-weight:600}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;color:var(--body);background:#fff;-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--accent)}
+h1,h2,h3{color:var(--ink);line-height:1.15;letter-spacing:-.02em;margin:0}
+h2{font-size:clamp(26px,3.6vw,38px)}
+h3{font-size:18px;letter-spacing:-.01em}
+.wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+.narrow{max-width:820px}
+.skip{position:absolute;left:-999px}.skip:focus{left:12px;top:12px;z-index:99;background:#fff;padding:8px 12px}
+:focus-visible{outline:3px solid #14b8a6;outline-offset:2px;border-radius:6px}
+/* language switch */
+html[data-lang=en] .l-de,html[data-lang=de] .l-en{display:none!important}
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--accent);color:#fff;text-decoration:none;font-weight:650;font-size:16px;padding:12px 20px;border-radius:12px;box-shadow:0 1px 0 rgba(255,255,255,.15) inset,0 6px 16px -6px rgba(15,118,110,.6);transition:transform .15s,background .15s;white-space:nowrap}
+.btn:hover{background:var(--accent-d);transform:translateY(-1px)}
+.btn-lg{font-size:18px;padding:16px 28px;border-radius:14px}
+.btn-sm{font-size:15px;padding:9px 16px;border-radius:10px;box-shadow:none}
+.btn-light{background:#fff;color:var(--accent-d);box-shadow:0 10px 24px -10px rgba(0,0,0,.4)}
+.btn-light:hover{background:var(--accent-l)}
+.bi{width:22px;height:22px;flex:none;background:rgba(255,255,255,.2);border-radius:50%;padding:3px}
+.btn-light .bi{background:var(--accent-l)}
+.ic{width:20px;height:20px;flex:none}
+/* header */
+.hdr{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.88);backdrop-filter:saturate(1.6) blur(10px);-webkit-backdrop-filter:saturate(1.6) blur(10px);border-bottom:1px solid var(--line)}
+.hdr-in{display:flex;align-items:center;gap:24px;height:64px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-size:18px}
+.brand img{width:32px;height:32px}
+.nav{display:flex;gap:22px}
+.nav a{color:var(--muted);text-decoration:none;font-size:15px;font-weight:500}
+.nav a:hover{color:var(--ink)}
+.hdr-r{margin-left:auto;display:flex;align-items:center;gap:14px}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:#fff}
+.lang a{font-size:13px;font-weight:700;text-decoration:none;color:var(--muted);padding:4px 10px;border-radius:999px}
+html[data-lang=en] .b-en,html[data-lang=de] .b-de{background:var(--ink);color:#fff}
+/* hero */
+.hero{background:radial-gradient(1200px 500px at 0% 0%,#d9fbef 0%,rgba(217,251,239,0) 60%),radial-gradient(900px 500px at 100% 100%,#e0f2fe 0%,rgba(224,242,254,0) 60%),#fff;padding:64px 0 56px;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:center}
+.eyebrow{display:inline-block;margin:0 0 18px;font-size:14px;font-weight:650;color:var(--accent-d);background:var(--accent-l);border-radius:999px;padding:5px 12px}
+.hero h1{font-size:clamp(34px,5.2vw,58px);letter-spacing:-.035em;margin-bottom:20px}
+.lead{font-size:clamp(17px,1.6vw,20px);color:var(--body);margin:0 0 28px;max-width:560px}
+.micro{font-size:14px;color:var(--muted);margin:14px 0 0}
+.hero-visual{position:relative}
+.hero-visual img{border-radius:14px;box-shadow:0 2px 4px rgba(15,23,42,.06),0 30px 60px -20px rgba(15,23,42,.35);border:1px solid var(--line);width:100%;transform:rotate(.6deg)}
+.hero-visual:before{content:"";position:absolute;inset:-8% -10% -10% 8%;background:linear-gradient(135deg,#99f6e4,#bae6fd);border-radius:32px;opacity:.45;z-index:-1;filter:blur(2px)}
+.hero-visual{isolation:isolate}
+/* trust */
+.trust{border-block:1px solid var(--line);background:#fff;padding:22px 0}
+.trust-list{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:12px 32px}
+.trust-list li{display:flex;align-items:center;gap:8px;font-weight:600;color:var(--ink);font-size:15.5px}
+.trust-list .ic{color:var(--accent)}
+.trust-note{text-align:center;margin:10px 0 0;font-size:14px;color:var(--muted)}
+/* sections */
+.sec{padding:88px 0}
+.alt{background:var(--bg)}
+.sec-head{text-align:center;max-width:720px;margin:0 auto 48px}
+.kicker{font-size:13px;font-weight:750;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 10px}
+/* problem / solution */
+.ps{padding:88px 0 0}
+.ps-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.ps-card{border-radius:var(--r);padding:36px;border:1px solid var(--line)}
+.ps-card h2{font-size:clamp(22px,2.4vw,28px);margin-bottom:22px}
+.ps-card ul{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.ps-card li{display:flex;gap:12px;align-items:flex-start}
+.ps-card li .ic{margin-top:3px;border-radius:50%;padding:3px;width:24px;height:24px}
+.prob{background:#fff}
+.prob .kicker{color:#b42318}
+.prob li .ic{color:#b42318;background:#fee4e2}
+.sol{background:linear-gradient(160deg,#f0fdfa,#ecfeff);border-color:#b6ece3}
+.sol li .ic{color:#fff;background:var(--accent)}
+/* steps */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;counter-reset:s}
+.steps li{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:28px;box-shadow:var(--shadow)}
+.num{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:var(--accent);color:#fff;font-weight:800;margin-bottom:16px}
+.steps h3{margin-bottom:6px}
+.steps p,.feat p,.use p{margin:0;color:var(--muted);font-size:15.5px}
+/* features */
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.feat{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:26px;transition:box-shadow .2s,transform .2s}
+.feat:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.fi{display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:var(--accent-l);color:var(--accent-d);margin-bottom:14px;flex:none}
+.fi .ic{width:22px;height:22px}
+.feat h3{margin-bottom:6px}
+/* gallery */
+.gallery{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.gallery figure{margin:0}
+.gallery figure:first-child{grid-column:1/-1}
+.gallery a{display:block;border-radius:14px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow);background:#fff}
+.gallery img{width:100%;transition:transform .3s}
+.gallery a:hover img{transform:scale(1.015)}
+.gallery figcaption{font-size:14.5px;color:var(--muted);margin-top:10px;text-align:center}
+/* use cases */
+.uses{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.use{display:flex;gap:16px;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:24px}
+.use .fi{margin:0}
+.use h3{margin-bottom:4px}
+/* privacy band */
+.priv{background:var(--ink);color:#cbd5e1;padding:80px 0}
+.priv h2{color:#fff}
+.priv .kicker{color:#5eead4}
+.priv a{color:#5eead4;font-weight:600}
+.priv-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.priv ul{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.priv li{display:flex;gap:12px;align-items:center;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px 16px;color:#e2e8f0}
+.priv li .ic{color:#5eead4}
+/* faq */
+.faq{display:grid;gap:12px}
+.faq details{background:#fff;border:1px solid var(--line);border-radius:14px;padding:0 22px;transition:box-shadow .2s}
+.faq details[open]{box-shadow:var(--shadow)}
+.faq summary{cursor:pointer;list-style:none;font-weight:650;color:var(--ink);padding:18px 32px 18px 0;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:after{content:"";position:absolute;right:4px;top:50%;width:10px;height:10px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:translateY(-70%) rotate(45deg);transition:transform .2s}
+.faq details[open] summary:after{transform:translateY(-30%) rotate(-135deg)}
+.faq details p{margin:0 0 18px;color:var(--body)}
+/* final cta */
+.final{background:linear-gradient(135deg,#0f766e,#0e7490);color:#d5f5f0;text-align:center;padding:88px 0}
+.final img{margin:0 auto 20px;border-radius:16px;background:#fff;padding:8px}
+.final h2{color:#fff;margin-bottom:12px}
+.final p{margin:0 auto 28px;max-width:560px;font-size:18px}
+.final .micro{color:#bdeee6;margin-top:14px}
+/* footer */
+.ftr{background:#fff;border-top:1px solid var(--line);padding:32px 0 40px;font-size:14px;color:var(--muted)}
+.ftr-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;margin-bottom:14px}
+.ftr nav{display:flex;flex-wrap:wrap;gap:8px 22px}
+.ftr nav a{color:var(--body)}
+.ftr p{margin:0}
+.ftr .brand{font-size:16px}.ftr .brand img{width:24px;height:24px}
+/* sticky mobile cta */
+.sticky{display:none}
+/* responsive */
+@media (max-width:980px){
+ .nav{display:none!important}
+ .hero-grid{grid-template-columns:1fr;gap:40px}
+ .hero-copy{text-align:center}
+ .lead{margin-left:auto;margin-right:auto}
+ .hero-visual{max-width:560px;margin:0 auto}
+ .features{grid-template-columns:1fr 1fr}
+ .steps{grid-template-columns:1fr}
+ .priv-grid{grid-template-columns:1fr;gap:28px}
+}
+@media (max-width:720px){
+ body{font-size:16px}
+ .hdr-in{height:58px;gap:12px}
+ .hdr-cta{display:none!important}
+ .hero{padding:36px 0 40px}
+ .eyebrow{font-size:13px}
+ .btn-lg{width:100%;max-width:420px;font-size:17px;padding:15px 20px}
+ .sec{padding:60px 0}
+ .ps{padding:60px 0 0}
+ .ps-grid,.features,.uses{grid-template-columns:1fr}
+ .ps-card{padding:26px 22px}
+ .sec-head{margin-bottom:32px}
+ .trust-list{justify-content:flex-start;display:grid;grid-template-columns:1fr 1fr;gap:12px 16px}
+ .trust-list li{font-size:14.5px}
+ .trust-note{text-align:left}
+ .gallery{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;margin:0 -20px;padding:4px 20px 12px;scrollbar-width:thin}
+ .gallery figure{flex:0 0 86%;scroll-snap-align:center}
+ .gallery a{box-shadow:none}
+ .priv{padding:60px 0}
+ .final{padding:64px 0}
+ .sticky{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:30;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.96);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-top:1px solid var(--line);box-shadow:0 -8px 24px -12px rgba(15,23,42,.25);transition:transform .25s}
+ .sticky b{display:block;color:var(--ink);font-size:15px;line-height:1.2}
+ .sticky small{color:var(--muted);font-size:12.5px}
+ .sticky .btn{padding:11px 16px;font-size:15px}
+ html.cta-vis .sticky{transform:translateY(110%)}
+ body{padding-bottom:76px}
+}
+@media (max-width:380px){.trust-list{grid-template-columns:1fr}.sticky small{display:none}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+.tm{font-size:.45em;vertical-align:.95em;line-height:0;margin-left:.04em;letter-spacing:0}
+section[id]{scroll-margin-top:72px}
+
 </style>
 </head>
 <body>
-<header><div class="wrap">
-  <img src="img/icon128.png" alt="" width="32" height="32"><b>CopyKeeper</b>
-  <nav><a class="l-en on" href="#en" hreflang="en">EN</a><a class="l-de" href="#de" hreflang="de">DE</a></nav>
+<a class="skip" href="#top-main">Skip to content</a>
+<header class="hdr"><div class="wrap hdr-in">
+<a class="brand" href="./"><img src="img/icon128.png" alt="" width="32" height="32"><b>CopyKeeper</b></a>
+<nav class="nav l-en" aria-label="Sections"><a href="#en-features">Features</a><a href="#en-how">How it works</a><a href="#en-faq">FAQ</a></nav><nav class="nav l-de" aria-label="Sections"><a href="#de-features">Funktionen</a><a href="#de-how">So geht's</a><a href="#de-faq">FAQ</a></nav>
+<div class="hdr-r">
+<div class="lang" role="group" aria-label="Language / Sprache"><a class="b-en" href="#en" hreflang="en" lang="en">EN</a><a class="b-de" href="#de" hreflang="de" lang="de">DE</a></div>
+<a class="btn btn-sm hdr-cta l-en" href="https://chromewebstore.google.com/detail/bbnjoomncofeppcdoebcnkgpbihkoekf" rel="noopener">Add to Chrome – free</a><a class="btn btn-sm hdr-cta l-de" href="https://chromewebstore.google.com/detail/bbnjoomncofeppcdoebcnkgpbihkoekf?hl=de" rel="noopener">Zu Chrome hinzufügen</a>
+</div>
 </div></header>
-
-<!-- ===================== ENGLISH ===================== -->
-<main id="en" lang="en"><div class="wrap">
-<section class="hero">
-  <h1>Never forget a BCC in Gmail™ again</h1>
-  <p>CopyKeeper automatically adds your CC and BCC addresses to every new email, reply and forward. Perfect for logging client emails to your CRM. You see every address before you send.</p>
-  <a class="btn" href="https://chromewebstore.google.com/detail/bbnjoomncofeppcdoebcnkgpbihkoekf">Add to Chrome, it's free</a>
-  <p class="small">No account · No tracking · Data stays in your browser</p>
-</section>
-<figure><img src="img/en/01-never-forget-bcc.jpg" alt="Gmail compose window with a BCC address added automatically by CopyKeeper" width="1280" height="800" loading="lazy"></figure>
-
-<div class="grid">
-  <div class="card"><h3>CRM logging on autopilot</h3><p>Paste your CRM's BCC address once (HubSpot, Salesforce, Pipedrive, Zoho and others). Every matching email gets logged.</p></div>
-  <div class="card"><h3>Rules, not spam</h3><p>Only for certain recipient domains or a specific sender alias. An exclusion list keeps internal and private mail out.</p></div>
-  <div class="card"><h3>Visible and in your control</h3><p>Addresses appear in the draft right away. Remove one with a click, no duplicates, on/off switch in the toolbar.</p></div>
-  <div class="card"><h3>Free and private</h3><p>All features free. No account, no Gmail API access, no servers, no network requests.</p></div>
+<div id="top-main"></div>
+<main class="l l-en" lang="en">
+<section class="hero"><div class="wrap hero-grid">
+<div class="hero-copy">
+<p class="eyebrow">Free Chrome extension for Gmail™</p>
+<h1>Never forget a BCC in Gmail<span class="tm">™</span> again</h1>
+<p class="lead">CopyKeeper automatically adds your CC and BCC addresses – like your CRM's logging address – to every new email, reply and forward. You see every address before you hit send.</p>
+<div class="cta-row"><a class="btn btn-lg hero-cta" href="https://chromewebstore.google.com/detail/bbnjoomncofeppcdoebcnkgpbihkoekf" rel="noopener"><svg class="bi" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg><span>Add to Chrome – it's free</span></a></div>
+<p class="micro">For Gmail™ in desktop Chrome · No sign-up</p>
 </div>
-
-<h2>How it works</h2>
-<ol>
-  <li>Install CopyKeeper from the Chrome Web Store.</li>
-  <li>Open the settings and enter your default CC/BCC addresses or create rules.</li>
-  <li>Write emails in Gmail as usual. CopyKeeper fills in the rest.</li>
-</ol>
-<figure><img src="img/en/03-crm-logging.jpg" alt="Rule that BCCs the CRM only for client domains" width="1280" height="800" loading="lazy"></figure>
-
-<h2>FAQ</h2>
-<details><summary>Does it work with Google Workspace accounts?</summary><p>Yes, anywhere you use Gmail™ in Chrome on the desktop (mail.google.com).</p></details>
-<details><summary>Does it work in the Gmail mobile app?</summary><p>No. Browser extensions only run in desktop Chrome. For server-side copies on all devices, a Google Workspace admin can set up an outbound routing rule.</p></details>
-<details><summary>Why not just use a Gmail filter?</summary><p>Gmail filters only run on incoming mail, so they can't add a copy to the emails you send.</p></details>
-<details><summary>What data does CopyKeeper access?</summary><p>Only the Gmail page it runs on, to fill in the CC/BCC fields. Settings are stored in Chrome's sync storage. Nothing is sent to us or anyone else. Details in the <a href="privacy.html">privacy policy</a>.</p></details>
-<details><summary>Is it really free?</summary><p>Yes. There is no paid version and no account. If it saves you time, a short rating in the Chrome Web Store helps a lot.</p></details>
-<details><summary>Something doesn't work?</summary><p>Open the settings, run the self-test and send the debug log to <a href="mailto:mvepoint@gmail.com">mvepoint@gmail.com</a>.</p></details>
-</div></main>
-
-<!-- ===================== DEUTSCH ===================== -->
-<main id="de" lang="de"><div class="wrap">
-<section class="hero">
-  <h1>Nie wieder ein BCC in Gmail™ vergessen</h1>
-  <p>CopyKeeper fügt deine CC- und BCC-Adressen automatisch in jede neue Mail, Antwort und Weiterleitung ein. Ideal, um Kunden-Mails im CRM zu protokollieren. Du siehst jede Adresse vor dem Senden.</p>
-  <a class="btn" href="https://chromewebstore.google.com/detail/bbnjoomncofeppcdoebcnkgpbihkoekf?hl=de">Zu Chrome hinzufügen, kostenlos</a>
-  <p class="small">Ohne Konto · Ohne Tracking · Daten bleiben im Browser</p>
-</section>
-<figure><img src="img/de/01-never-forget-bcc.jpg" alt="Gmail-Entwurf mit automatisch eingefügter BCC-Adresse" width="1280" height="800" loading="lazy"></figure>
-
-<div class="grid">
-  <div class="card"><h3>CRM-Protokoll automatisch</h3><p>BCC-Adresse deines CRM einmal eintragen (HubSpot, Salesforce, Pipedrive, Zoho u. a.). Jede passende Mail wird protokolliert.</p></div>
-  <div class="card"><h3>Regeln statt Gießkanne</h3><p>Nur für bestimmte Empfänger-Domains oder eine Absenderadresse. Eine Ausschlussliste hält interne und private Mails draußen.</p></div>
-  <div class="card"><h3>Sichtbar und unter Kontrolle</h3><p>Adressen erscheinen sofort im Entwurf. Mit einem Klick entfernen, keine Duplikate, Ein/Aus-Schalter in der Symbolleiste.</p></div>
-  <div class="card"><h3>Kostenlos und privat</h3><p>Alle Funktionen kostenlos. Kein Konto, kein Zugriff auf die Gmail-API, keine Server, keine Netzwerkanfragen.</p></div>
+<div class="hero-visual"><img src="img/en/hero-compose.webp" alt="Gmail compose window: CopyKeeper has added a CC and a CRM BCC address automatically" width="663" height="599" fetchpriority="high" decoding="async"></div>
+</div></section>
+<section class="trust" aria-label="Highlights"><div class="wrap"><ul class="trust-list"><li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg><span>100% free</span></li><li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="m18 8 5 5M23 8l-5 5"/></svg><span>No account</span></li><li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span>Data stays in your browser</span></li><li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg><span>No tracking, no servers</span></li><li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg><span>Works with any CRM BCC address</span></li></ul><p class="trust-note">e.g. HubSpot, Salesforce, Zoho, Pipedrive – any address your CRM gives you for BCC logging.</p></div></section>
+<section class="ps"><div class="wrap ps-grid">
+<div class="ps-card prob"><p class="kicker">The problem</p><h2>One forgotten BCC = one email missing from your CRM</h2><ul><li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg><span>You BCC your CRM by hand – and forget it when you're in a hurry.</span></li><li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg><span>Replies and forwards slip through, so client histories have gaps.</span></li><li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg><span>Gmail filters can't help: they only work on incoming mail.</span></li></ul></div>
+<div class="ps-card sol"><p class="kicker">With CopyKeeper</p><h2>Set it once. Every email is covered.</h2><ul><li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Your BCC/CC addresses are added automatically – new mails, replies and forwards.</span></li><li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Rules decide when: only for client domains, never for internal mail.</span></li><li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Everything stays visible in the draft. Remove an address with one click.</span></li></ul></div>
+</div></section>
+<section class="sec" id="en-how"><div class="wrap"><div class="sec-head"><p class="kicker">How it works</p><h2>Ready in three steps</h2></div>
+<ol class="steps"><li><span class="num">1</span><h3>Install</h3><p>Add CopyKeeper to Chrome from the Chrome Web Store. Free, no account.</p></li><li><span class="num">2</span><h3>Enter your addresses</h3><p>Paste your CRM's BCC address or any CC/BCC you want. Add rules if you like.</p></li><li><span class="num">3</span><h3>Write as usual</h3><p>Compose in Gmail™ as always. CopyKeeper fills in the CC/BCC fields for you.</p></li></ol></div></section>
+<section class="sec alt" id="en-features"><div class="wrap"><div class="sec-head"><p class="kicker">Features</p><h2>Everything you need, nothing you don't</h2></div>
+<div class="features"><div class="feat"><span class="fi"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 17 4 12l5-5"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/></svg></span><h3>New mails, replies & forwards</h3><p>Addresses are added wherever you write – not just in new messages.</p></div><div class="feat"><span class="fi"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg></span><h3>Rules by recipient domain</h3><p>Only BCC your CRM when you write to client.com – or any list of domains.</p></div><div class="feat"><span class="fi"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg></span><h3>Skip internal mail</h3><p>An exclusion list keeps colleagues, private and internal emails out.</p></div><div class="feat"><span class="fi"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><h3>Per sender & alias</h3><p>Different copies for each Gmail™ account or send-as address.</p></div><div class="feat"><span class="fi"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span><h3>Visible, no duplicates</h3><p>You see every added address in the draft and can remove it with one click.</p></div><div class="feat"><span class="fi"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="5" width="22" height="14" rx="7"/><circle cx="16" cy="12" r="3"/></svg></span><h3>On/off in one click</h3><p>Pause CopyKeeper from the toolbar whenever you need to.</p></div></div></div></section>
+<section class="sec" id="en-screens"><div class="wrap"><div class="sec-head"><p class="kicker">Screenshots</p><h2>See it in action</h2></div>
+<div class="gallery"><figure><a href="img/en/01-never-forget-bcc.webp"><img src="img/en/01-never-forget-bcc-640.webp" srcset="img/en/01-never-forget-bcc-640.webp 640w, img/en/01-never-forget-bcc.webp 1280w" sizes="(min-width:900px) 1040px, 86vw" alt="CC and BCC added automatically in a Gmail compose window" width="1280" height="800" loading="lazy" decoding="async"></a><figcaption>CC and BCC added automatically in a Gmail compose window</figcaption></figure><figure><a href="img/en/02-setup-rules.webp"><img src="img/en/02-setup-rules-640.webp" srcset="img/en/02-setup-rules-640.webp 640w, img/en/02-setup-rules.webp 1280w" sizes="(min-width:900px) 520px, 86vw" alt="Settings: default addresses and optional rules" width="1280" height="800" loading="lazy" decoding="async"></a><figcaption>Settings: default addresses and optional rules</figcaption></figure><figure><a href="img/en/03-crm-logging.webp"><img src="img/en/03-crm-logging-640.webp" srcset="img/en/03-crm-logging-640.webp 640w, img/en/03-crm-logging.webp 1280w" sizes="(min-width:900px) 520px, 86vw" alt="Rule that BCCs the CRM only for client domains" width="1280" height="800" loading="lazy" decoding="async"></a><figcaption>Rule that BCCs the CRM only for client domains</figcaption></figure><figure><a href="img/en/04-replies-forwards-aliases.webp"><img src="img/en/04-replies-forwards-aliases-640.webp" srcset="img/en/04-replies-forwards-aliases-640.webp 640w, img/en/04-replies-forwards-aliases.webp 1280w" sizes="(min-width:900px) 520px, 86vw" alt="Works for replies, forwards and send-as aliases" width="1280" height="800" loading="lazy" decoding="async"></a><figcaption>Works for replies, forwards and send-as aliases</figcaption></figure><figure><a href="img/en/05-free-private.webp"><img src="img/en/05-free-private-640.webp" srcset="img/en/05-free-private-640.webp 640w, img/en/05-free-private.webp 1280w" sizes="(min-width:900px) 520px, 86vw" alt="Free, private, no account" width="1280" height="800" loading="lazy" decoding="async"></a><figcaption>Free, private, no account</figcaption></figure></div></div></section>
+<section class="sec alt"><div class="wrap"><div class="sec-head"><p class="kicker">Use cases</p><h2>Made for people who live in Gmail<span class="tm">™</span></h2></div>
+<div class="uses"><div class="use"><span class="fi"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></span><div><h3>Sales & CRM logging</h3><p>Log every client email to HubSpot, Salesforce, Zoho, Pipedrive or any CRM with a BCC address.</p></div></div><div class="use"><span class="fi"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span><div><h3>Freelancers & agencies</h3><p>Keep your partner, assistant or project inbox in CC on client communication.</p></div></div><div class="use"><span class="fi"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8v13H3V8"/><path d="M1 3h22v5H1z"/><path d="M10 12h4"/></svg></span><div><h3>Archive & bookkeeping</h3><p>BCC an archive or accounting address so nothing gets lost.</p></div></div><div class="use"><span class="fi"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><div><h3>Teams & managers</h3><p>Keep the right people in the loop on emails to specific domains.</p></div></div></div></div></section>
+<section class="priv"><div class="wrap priv-grid"><div><p class="kicker">Privacy first</p><h2>Your emails never leave your browser</h2><p><a href="privacy.html">Read the privacy policy →</a></p></div>
+<ul><li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>No Gmail™ API access and no login</span></li><li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>No servers, no analytics, no network requests</span></li><li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Settings are stored in Chrome's own sync storage</span></li><li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>All features free, no account needed</span></li></ul></div></section>
+<section class="sec" id="en-faq"><div class="wrap narrow"><div class="sec-head"><h2>Frequently asked questions</h2></div>
+<div class="faq"><details><summary>Which CRMs does it work with?</summary><p>Any CRM or tool that gives you a BCC/dropbox address for logging, e.g. HubSpot, Salesforce, Zoho CRM or Pipedrive. CopyKeeper simply adds that address; your CRM does the logging. CopyKeeper is not affiliated with these companies.</p></details><details><summary>Does it work with Google Workspace accounts?</summary><p>Yes, anywhere you use Gmail™ in Chrome on the desktop (mail.google.com).</p></details><details><summary>Does it work in the Gmail mobile app?</summary><p>No. Browser extensions only run in desktop Chrome. For server-side copies on all devices, a Google Workspace admin can set up an outbound routing rule.</p></details><details><summary>Why not just use a Gmail filter?</summary><p>Gmail filters only run on incoming mail, so they can't add a copy to the emails you send.</p></details><details><summary>Can I limit it to certain recipients?</summary><p>Yes. Rules can apply only to specific recipient domains or a specific sender address, and an exclusion list keeps internal mail out.</p></details><details><summary>What data does CopyKeeper access?</summary><p>Only the Gmail page it runs on, to fill in the CC/BCC fields. Settings are stored in Chrome's sync storage. Nothing is sent to us or anyone else. Details in the <a href="privacy.html">privacy policy</a>.</p></details><details><summary>Is it really free?</summary><p>Yes. There is no paid version and no account. If it saves you time, a short rating in the Chrome Web Store helps a lot.</p></details><details><summary>Something doesn't work?</summary><p>Open the settings, run the self-test and send the debug log to <a href="mailto:mvepoint@gmail.com">mvepoint@gmail.com</a>.</p></details></div></div></section>
+<section class="final"><div class="wrap"><img src="img/icon128.png" alt="" width="64" height="64" loading="lazy"><h2>Stop forgetting BCCs today</h2><p>Install CopyKeeper, enter your addresses once and let Gmail™ do the rest.</p><a class="btn btn-lg btn-light" href="https://chromewebstore.google.com/detail/bbnjoomncofeppcdoebcnkgpbihkoekf" rel="noopener"><svg class="bi" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg><span>Add to Chrome – it's free</span></a><p class="micro">Free · No account · Desktop Chrome</p></div></section>
+<div class="sticky" aria-hidden="false"><div><b>CopyKeeper</b><small>Free for desktop Chrome</small></div><a class="btn" href="https://chromewebstore.google.com/detail/bbnjoomncofeppcdoebcnkgpbihkoekf" rel="noopener">Add to Chrome – free</a></div>
+</main>
+<main class="l l-de" lang="de">
+<section class="hero"><div class="wrap hero-grid">
+<div class="hero-copy">
+<p class="eyebrow">Kostenlose Chrome-Erweiterung für Gmail™</p>
+<h1>Nie wieder ein BCC in Gmail<span class="tm">™</span> vergessen</h1>
+<p class="lead">CopyKeeper fügt deine CC- und BCC-Adressen – etwa die Protokoll-Adresse deines CRM – automatisch in jede neue Mail, Antwort und Weiterleitung ein. Du siehst jede Adresse, bevor du auf Senden klickst.</p>
+<div class="cta-row"><a class="btn btn-lg hero-cta" href="https://chromewebstore.google.com/detail/bbnjoomncofeppcdoebcnkgpbihkoekf?hl=de" rel="noopener"><svg class="bi" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg><span>Zu Chrome hinzufügen – kostenlos</span></a></div>
+<p class="micro">Für Gmail™ in Chrome am Desktop · Ohne Anmeldung</p>
 </div>
-
-<h2>So funktioniert's</h2>
-<ol>
-  <li>CopyKeeper aus dem Chrome Web Store installieren.</li>
-  <li>Einstellungen öffnen und Standard-CC/BCC-Adressen eintragen oder Regeln anlegen.</li>
-  <li>Wie gewohnt in Gmail schreiben. Den Rest erledigt CopyKeeper.</li>
-</ol>
-<figure><img src="img/de/03-crm-logging.jpg" alt="Regel: CRM nur für Kunden-Domains in BCC setzen" width="1280" height="800" loading="lazy"></figure>
-
-<h2>Häufige Fragen</h2>
-<details><summary>Funktioniert es mit Google-Workspace-Konten?</summary><p>Ja, überall dort, wo du Gmail™ in Chrome am Desktop nutzt (mail.google.com).</p></details>
-<details><summary>Funktioniert es in der Gmail-App auf dem Handy?</summary><p>Nein. Browser-Erweiterungen laufen nur in Chrome am Desktop. Für serverseitige Kopien auf allen Geräten kann ein Google-Workspace-Admin eine Routing-Regel für ausgehende Mails anlegen.</p></details>
-<details><summary>Warum nicht einfach ein Gmail-Filter?</summary><p>Gmail-Filter greifen nur bei eingehenden Mails. Gesendete Mails können sie nicht kopieren.</p></details>
-<details><summary>Auf welche Daten greift CopyKeeper zu?</summary><p>Nur auf die Gmail-Seite, um die CC/BCC-Felder auszufüllen. Einstellungen liegen im Sync-Speicher von Chrome. Es wird nichts an uns oder Dritte gesendet. Details in der <a href="privacy.html">Datenschutzerklärung</a>.</p></details>
-<details><summary>Ist es wirklich kostenlos?</summary><p>Ja. Es gibt keine Bezahlversion und kein Konto. Wenn es dir Zeit spart, hilft eine kurze Bewertung im Chrome Web Store sehr.</p></details>
-<details><summary>Etwas funktioniert nicht?</summary><p>Einstellungen öffnen, Selbsttest starten und das Debug-Log an <a href="mailto:mvepoint@gmail.com">mvepoint@gmail.com</a> schicken.</p></details>
-</div></main>
-
-<footer><div class="wrap">
-  <a href="privacy.html">Privacy Policy / Datenschutzerklärung</a> ·
-  <a href="impressum.html">Impressum / Legal notice</a>
-  <br>Gmail™ is a trademark of Google LLC. CopyKeeper is not affiliated with or endorsed by Google. Other product names belong to their owners.
-  <br>Gmail™ ist eine Marke der Google LLC. CopyKeeper steht in keiner Verbindung zu Google.
+<div class="hero-visual"><img src="img/de/hero-compose.webp" alt="Gmail-Entwurf: CopyKeeper hat automatisch eine CC- und eine CRM-BCC-Adresse eingefügt" width="663" height="599" fetchpriority="auto" decoding="async"></div>
+</div></section>
+<section class="trust" aria-label="Highlights"><div class="wrap"><ul class="trust-list"><li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg><span>100 % kostenlos</span></li><li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="m18 8 5 5M23 8l-5 5"/></svg><span>Kein Konto</span></li><li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span>Daten bleiben im Browser</span></li><li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg><span>Kein Tracking, keine Server</span></li><li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg><span>Mit jeder CRM-BCC-Adresse</span></li></ul><p class="trust-note">z. B. HubSpot, Salesforce, Zoho, Pipedrive – jede Adresse, die dein CRM zum Protokollieren per BCC anbietet.</p></div></section>
+<section class="ps"><div class="wrap ps-grid">
+<div class="ps-card prob"><p class="kicker">Das Problem</p><h2>Ein vergessenes BCC = eine Mail fehlt im CRM</h2><ul><li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg><span>Du setzt dein CRM per Hand in BCC – und vergisst es, wenn es schnell gehen muss.</span></li><li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg><span>Antworten und Weiterleitungen rutschen durch, die Kundenhistorie hat Lücken.</span></li><li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg><span>Gmail-Filter helfen nicht: Sie greifen nur bei eingehenden Mails.</span></li></ul></div>
+<div class="ps-card sol"><p class="kicker">Mit CopyKeeper</p><h2>Einmal einrichten. Jede Mail ist abgedeckt.</h2><ul><li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Deine BCC-/CC-Adressen werden automatisch eingefügt – bei neuen Mails, Antworten und Weiterleitungen.</span></li><li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Regeln bestimmen wann: nur für Kunden-Domains, nie für interne Mails.</span></li><li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Alles bleibt im Entwurf sichtbar. Eine Adresse entfernst du mit einem Klick.</span></li></ul></div>
+</div></section>
+<section class="sec" id="de-how"><div class="wrap"><div class="sec-head"><p class="kicker">So funktioniert's</p><h2>In drei Schritten startklar</h2></div>
+<ol class="steps"><li><span class="num">1</span><h3>Installieren</h3><p>CopyKeeper aus dem Chrome Web Store hinzufügen. Kostenlos, ohne Konto.</p></li><li><span class="num">2</span><h3>Adressen eintragen</h3><p>BCC-Adresse deines CRM oder beliebige CC/BCC-Adressen eintragen. Optional Regeln anlegen.</p></li><li><span class="num">3</span><h3>Wie gewohnt schreiben</h3><p>In Gmail™ schreiben wie immer. CopyKeeper füllt CC/BCC für dich aus.</p></li></ol></div></section>
+<section class="sec alt" id="de-features"><div class="wrap"><div class="sec-head"><p class="kicker">Funktionen</p><h2>Alles, was du brauchst – nichts, was stört</h2></div>
+<div class="features"><div class="feat"><span class="fi"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 17 4 12l5-5"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/></svg></span><h3>Neue Mails, Antworten & Weiterleitungen</h3><p>Adressen werden überall eingefügt, wo du schreibst – nicht nur bei neuen Mails.</p></div><div class="feat"><span class="fi"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg></span><h3>Regeln nach Empfänger-Domain</h3><p>CRM nur in BCC, wenn du an kunde.de schreibst – oder an eine Liste von Domains.</p></div><div class="feat"><span class="fi"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg></span><h3>Interne Mails auslassen</h3><p>Eine Ausschlussliste hält Kolleg:innen, private und interne Mails draußen.</p></div><div class="feat"><span class="fi"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><h3>Pro Absender & Alias</h3><p>Unterschiedliche Kopien für jedes Gmail™-Konto oder jede Absenderadresse.</p></div><div class="feat"><span class="fi"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span><h3>Sichtbar, keine Duplikate</h3><p>Jede eingefügte Adresse steht im Entwurf und lässt sich mit einem Klick entfernen.</p></div><div class="feat"><span class="fi"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="5" width="22" height="14" rx="7"/><circle cx="16" cy="12" r="3"/></svg></span><h3>Ein/Aus mit einem Klick</h3><p>CopyKeeper jederzeit über die Symbolleiste pausieren.</p></div></div></div></section>
+<section class="sec" id="de-screens"><div class="wrap"><div class="sec-head"><p class="kicker">Screenshots</p><h2>So sieht es aus</h2></div>
+<div class="gallery"><figure><a href="img/de/01-never-forget-bcc.webp"><img src="img/de/01-never-forget-bcc-640.webp" srcset="img/de/01-never-forget-bcc-640.webp 640w, img/de/01-never-forget-bcc.webp 1280w" sizes="(min-width:900px) 1040px, 86vw" alt="CC und BCC automatisch im Gmail-Entwurf eingefügt" width="1280" height="800" loading="lazy" decoding="async"></a><figcaption>CC und BCC automatisch im Gmail-Entwurf eingefügt</figcaption></figure><figure><a href="img/de/02-setup-rules.webp"><img src="img/de/02-setup-rules-640.webp" srcset="img/de/02-setup-rules-640.webp 640w, img/de/02-setup-rules.webp 1280w" sizes="(min-width:900px) 520px, 86vw" alt="Einstellungen: Standard-Adressen und optionale Regeln" width="1280" height="800" loading="lazy" decoding="async"></a><figcaption>Einstellungen: Standard-Adressen und optionale Regeln</figcaption></figure><figure><a href="img/de/03-crm-logging.webp"><img src="img/de/03-crm-logging-640.webp" srcset="img/de/03-crm-logging-640.webp 640w, img/de/03-crm-logging.webp 1280w" sizes="(min-width:900px) 520px, 86vw" alt="Regel: CRM nur für Kunden-Domains in BCC setzen" width="1280" height="800" loading="lazy" decoding="async"></a><figcaption>Regel: CRM nur für Kunden-Domains in BCC setzen</figcaption></figure><figure><a href="img/de/04-replies-forwards-aliases.webp"><img src="img/de/04-replies-forwards-aliases-640.webp" srcset="img/de/04-replies-forwards-aliases-640.webp 640w, img/de/04-replies-forwards-aliases.webp 1280w" sizes="(min-width:900px) 520px, 86vw" alt="Funktioniert bei Antworten, Weiterleitungen und Aliassen" width="1280" height="800" loading="lazy" decoding="async"></a><figcaption>Funktioniert bei Antworten, Weiterleitungen und Aliassen</figcaption></figure><figure><a href="img/de/05-free-private.webp"><img src="img/de/05-free-private-640.webp" srcset="img/de/05-free-private-640.webp 640w, img/de/05-free-private.webp 1280w" sizes="(min-width:900px) 520px, 86vw" alt="Kostenlos, privat, ohne Konto" width="1280" height="800" loading="lazy" decoding="async"></a><figcaption>Kostenlos, privat, ohne Konto</figcaption></figure></div></div></section>
+<section class="sec alt"><div class="wrap"><div class="sec-head"><p class="kicker">Einsatzbereiche</p><h2>Für alle, die in Gmail<span class="tm">™</span> arbeiten</h2></div>
+<div class="uses"><div class="use"><span class="fi"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></span><div><h3>Vertrieb & CRM</h3><p>Jede Kunden-Mail in HubSpot, Salesforce, Zoho, Pipedrive oder jedem CRM mit BCC-Adresse protokollieren.</p></div></div><div class="use"><span class="fi"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span><div><h3>Selbstständige & Agenturen</h3><p>Partner, Assistenz oder Projekt-Postfach bei Kundenkommunikation automatisch in CC.</p></div></div><div class="use"><span class="fi"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8v13H3V8"/><path d="M1 3h22v5H1z"/><path d="M10 12h4"/></svg></span><div><h3>Archiv & Buchhaltung</h3><p>Eine Archiv- oder Buchhaltungsadresse in BCC, damit nichts verloren geht.</p></div></div><div class="use"><span class="fi"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><div><h3>Teams & Führungskräfte</h3><p>Die richtigen Leute bei Mails an bestimmte Domains auf dem Laufenden halten.</p></div></div></div></div></section>
+<section class="priv"><div class="wrap priv-grid"><div><p class="kicker">Datenschutz zuerst</p><h2>Deine Mails verlassen nie deinen Browser</h2><p><a href="privacy.html">Datenschutzerklärung lesen →</a></p></div>
+<ul><li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Kein Zugriff auf die Gmail™-API, keine Anmeldung</span></li><li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Keine Server, keine Analyse, keine Netzwerkanfragen</span></li><li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Einstellungen liegen im Sync-Speicher von Chrome</span></li><li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Alle Funktionen kostenlos, kein Konto nötig</span></li></ul></div></section>
+<section class="sec" id="de-faq"><div class="wrap narrow"><div class="sec-head"><h2>Häufige Fragen</h2></div>
+<div class="faq"><details><summary>Mit welchen CRMs funktioniert es?</summary><p>Mit jedem CRM oder Tool, das eine BCC- bzw. Dropbox-Adresse zum Protokollieren anbietet, z. B. HubSpot, Salesforce, Zoho CRM oder Pipedrive. CopyKeeper fügt nur die Adresse ein, das Protokollieren übernimmt dein CRM. CopyKeeper steht in keiner Verbindung zu diesen Unternehmen.</p></details><details><summary>Funktioniert es mit Google-Workspace-Konten?</summary><p>Ja, überall dort, wo du Gmail™ in Chrome am Desktop nutzt (mail.google.com).</p></details><details><summary>Funktioniert es in der Gmail-App auf dem Handy?</summary><p>Nein. Browser-Erweiterungen laufen nur in Chrome am Desktop. Für serverseitige Kopien auf allen Geräten kann ein Google-Workspace-Admin eine Routing-Regel für ausgehende Mails anlegen.</p></details><details><summary>Warum nicht einfach ein Gmail-Filter?</summary><p>Gmail-Filter greifen nur bei eingehenden Mails. Gesendete Mails können sie nicht kopieren.</p></details><details><summary>Kann ich es auf bestimmte Empfänger beschränken?</summary><p>Ja. Regeln können nur für bestimmte Empfänger-Domains oder eine bestimmte Absenderadresse gelten, und eine Ausschlussliste hält interne Mails draußen.</p></details><details><summary>Auf welche Daten greift CopyKeeper zu?</summary><p>Nur auf die Gmail-Seite, um die CC/BCC-Felder auszufüllen. Einstellungen liegen im Sync-Speicher von Chrome. Es wird nichts an uns oder Dritte gesendet. Details in der <a href="privacy.html">Datenschutzerklärung</a>.</p></details><details><summary>Ist es wirklich kostenlos?</summary><p>Ja. Es gibt keine Bezahlversion und kein Konto. Wenn es dir Zeit spart, hilft eine kurze Bewertung im Chrome Web Store sehr.</p></details><details><summary>Etwas funktioniert nicht?</summary><p>Einstellungen öffnen, Selbsttest starten und das Debug-Log an <a href="mailto:mvepoint@gmail.com">mvepoint@gmail.com</a> schicken.</p></details></div></div></section>
+<section class="final"><div class="wrap"><img src="img/icon128.png" alt="" width="64" height="64" loading="lazy"><h2>Schluss mit vergessenen BCCs</h2><p>CopyKeeper installieren, Adressen einmal eintragen und Gmail™ erledigt den Rest.</p><a class="btn btn-lg btn-light" href="https://chromewebstore.google.com/detail/bbnjoomncofeppcdoebcnkgpbihkoekf?hl=de" rel="noopener"><svg class="bi" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg><span>Zu Chrome hinzufügen – kostenlos</span></a><p class="micro">Kostenlos · Ohne Konto · Chrome am Desktop</p></div></section>
+<div class="sticky" aria-hidden="false"><div><b>CopyKeeper</b><small>Kostenlos für Chrome am Desktop</small></div><a class="btn" href="https://chromewebstore.google.com/detail/bbnjoomncofeppcdoebcnkgpbihkoekf?hl=de" rel="noopener">Zu Chrome hinzufügen</a></div>
+</main>
+<footer class="ftr"><div class="wrap">
+<div class="ftr-top"><a class="brand" href="./"><img src="img/icon128.png" alt="" width="24" height="24" loading="lazy"><b>CopyKeeper</b></a>
+<nav><a href="privacy.html">Privacy Policy / Datenschutzerklärung</a><a href="impressum.html">Impressum / Legal notice</a><a href="mailto:mvepoint@gmail.com">Support</a></nav></div>
+<p>Gmail™ is a trademark of Google LLC. CopyKeeper is not affiliated with or endorsed by Google. Other product names belong to their owners.<br>Gmail™ ist eine Marke der Google LLC. CopyKeeper steht in keiner Verbindung zu Google.</p>
 </div></footer>
+<script>
+/* Mobile sticky CTA: show once the hero button has scrolled out of view. */
+(function(){if(!('IntersectionObserver' in window))return;var d=document.documentElement;d.classList.add('js');var on=new Set();var io=new IntersectionObserver(function(e){e.forEach(function(x){x.isIntersecting?on.add(x.target):on.delete(x.target)});d.classList.toggle('cta-vis',on.size>0);});document.querySelectorAll('.hero-cta,.final .btn').forEach(function(b){io.observe(b)});})();
+</script>
 </body>
 </html>
